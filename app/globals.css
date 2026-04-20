@@ -1,26 +1,125 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --upsa-bg: #041327;
+  --upsa-surface: #082340;
+  --upsa-surface-soft: #0d2f56;
+  --upsa-border: #275283;
+  --upsa-border-strong: #35679f;
+  --upsa-text: #eef5ff;
+  --upsa-text-muted: #abc3df;
+  --upsa-primary: #f2c659;
+  --upsa-primary-pressed: #ddad38;
+  --upsa-hero: #02142e;
+  --upsa-accent: #ffd976;
+  --upsa-ring: #5b9be1;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: var(--upsa-bg);
+  --color-foreground: var(--upsa-text);
+  --font-sans: var(--font-upsa-body);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100%;
+  background:
+    radial-gradient(circle at 88% 10%, color-mix(in oklab, var(--upsa-ring) 42%, transparent) 0%, transparent 35%),
+    radial-gradient(circle at 12% 88%, color-mix(in oklab, var(--upsa-accent) 20%, transparent) 0%, transparent 38%),
+    linear-gradient(165deg, #041327 0%, #072040 42%, #071a35 100%);
+  color: var(--upsa-text);
+  font-family: var(--font-upsa-body), "Segoe UI", sans-serif;
+}
+
+.upsa-glass {
+  background: color-mix(in oklab, var(--upsa-surface) 78%, transparent);
+  border: 1px solid color-mix(in oklab, var(--upsa-border) 86%, #ffffff12);
+  box-shadow: 0 18px 42px -30px rgba(0, 8, 23, 0.9);
+  backdrop-filter: blur(14px);
+}
+
+.upsa-card {
+  background:
+    linear-gradient(150deg, color-mix(in oklab, var(--upsa-surface) 90%, #ffffff07) 0%, color-mix(in oklab, var(--upsa-surface-soft) 90%, #ffffff03) 100%);
+  border: 1px solid var(--upsa-border);
+  border-radius: 1.25rem;
+  box-shadow: 0 24px 38px -32px rgba(0, 5, 18, 0.95);
+}
+
+.upsa-title {
+  font-family: var(--font-upsa-display), "Trebuchet MS", sans-serif;
+}
+
+.upsa-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--upsa-border) 82%, #ffffff16);
+  background: color-mix(in oklab, var(--upsa-surface-soft) 78%, #ffffff06);
+  color: var(--upsa-text-muted);
+  padding: 0.35rem 0.75rem;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.upsa-btn-primary {
+  border-radius: 0.85rem;
+  background: linear-gradient(120deg, var(--upsa-primary) 0%, var(--upsa-accent) 100%);
+  color: #1f2f4a;
+  font-weight: 800;
+  transition: transform 160ms ease, filter 160ms ease;
+}
+
+.upsa-btn-primary:hover {
+  filter: brightness(1.04);
+  transform: translateY(-1px);
+}
+
+.upsa-btn-secondary {
+  border-radius: 0.85rem;
+  border: 1px solid var(--upsa-border-strong);
+  background: color-mix(in oklab, var(--upsa-surface) 88%, #ffffff0d);
+  color: var(--upsa-text);
+}
+
+.upsa-field {
+  width: 100%;
+  border-radius: 0.85rem;
+  border: 1px solid var(--upsa-border);
+  background: color-mix(in oklab, var(--upsa-surface-soft) 78%, #ffffff07);
+  color: var(--upsa-text);
+  padding: 0.58rem 0.78rem;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.upsa-field::placeholder {
+  color: color-mix(in oklab, var(--upsa-text-muted) 82%, transparent);
+}
+
+.upsa-field:focus {
+  border-color: var(--upsa-accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--upsa-accent) 24%, transparent);
+}
+
+.upsa-field option {
+  color: #0d233f;
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: riseIn 420ms ease-out both;
 }

@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## UPSA Connect Admin
 
-## Getting Started
+This app manages UPSA Connect content uploads:
 
-First, run the development server:
+- Departments
+- Programs
+- Classes
+- Courses
+- Slides/notes/images
+- Posts/news
+
+All records are tagged with department, program, class, year, and semester.
+
+## Setup
+
+1. Install dependencies and start dev server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Optional: create `.env.local` to override defaults:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The admin app already defaults to the same Supabase project keys used by the mobile app.
 
-## Learn More
+3. Run the SQL in `../UPSA-Connect/supabase/schema_and_seed.sql` to create:
 
-To learn more about Next.js, take a look at the following resources:
+- `student_profiles`
+- `department_catalog`
+- `program_catalog`
+- `class_catalog`
+- `course_catalog`
+- `learning_materials`
+- `campus_posts`
+- storage buckets `course-materials` and `news-media`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Main Files
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `app/page.tsx`: Admin dashboard UI (departments/programs/classes/courses/materials/posts)
+- `lib/supabase.ts`: Supabase client
 
-## Deploy on Vercel
+## Notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Upload paths are grouped as `year/semester/department/program/class/...`.
+- Use authenticated Supabase users with insert permissions for admin uploads.
